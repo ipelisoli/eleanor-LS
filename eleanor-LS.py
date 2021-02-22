@@ -93,12 +93,12 @@ for sector, datum in enumerate(data):
     err = np.hstack([err, err_i])
 
 # sigma-clipping
-filtered_data = sigma_clip(flux, sigma=clip, maxiters=None)
-clip = ~(filtered_data.mask)
-
-time = time[clip]
-flux = flux[clip]
-err = err[clip]
+if clip > 0:
+    filtered_data = sigma_clip(flux, sigma=clip, maxiters=None)
+    clip = ~(filtered_data.mask)
+    time = time[clip]
+    flux = flux[clip]
+    err = err[clip]
 
 # calculate FT
 freq, amp, period, fap = periodogram(time, flux, err)

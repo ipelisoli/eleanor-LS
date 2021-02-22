@@ -117,6 +117,8 @@ plt.ylabel("Relative flux")
 plt.scatter(time, flux, marker='.', color='k', zorder = 1)
 
 plt.subplot2grid((2,2),(1,0),colspan=1,rowspan=1)
+plt.xscale("log")
+plt.xlim(np.min(1/freq), np.max(1/freq))
 plt.xlabel("Period (hours)")
 plt.ylabel("Amplitude")
 plt.plot(1/freq, amp, c = 'k')
@@ -124,11 +126,15 @@ plt.plot(1/freq, amp, c = 'k')
 plt.subplot2grid((2,2),(1,1),colspan=1,rowspan=1)
 plt.ylabel("Relative flux")
 plt.xlabel("Phase")
-plt.xlim(0,1)
+plt.xlim(0,2)
 plt.scatter(phase, flux_phased, marker='.', color='0.75', zorder = 4)
 plt.scatter(running_mean(phase, 50), running_mean(flux_phased, 50), marker='.',
             color='k', zorder = 5)
 plt.plot(phase, flux_fit, 'r--', zorder = 6)
+plt.scatter(1+phase, flux_phased, marker='.', color='0.75', zorder = 4)
+plt.scatter(1+running_mean(phase, 50), running_mean(flux_phased, 50), marker='.',
+            color='k', zorder = 5)
+plt.plot(1+phase, flux_fit, 'r--', zorder = 6)
 
 plt.tight_layout()
 
